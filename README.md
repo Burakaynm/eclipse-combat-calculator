@@ -1,16 +1,65 @@
-# React + Vite
+# Eclipse: Second Dawn for the Galaxy — Combat Calculator
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A small React + Vite web app that estimates battle outcomes for **Eclipse: Second Dawn for the Galaxy** using Monte Carlo simulation.
 
-Currently, two official plugins are available:
+You configure attacker/defender ship stacks (weapons, computer, shield, hull, initiative, ship count, etc.), then the app runs many simulated combats and reports:
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- Attacker / Defender / Draw rates
+- Per-ship survival rate **given that side wins**
 
-## React Compiler
+## Features
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Two sides: **Attacker** and **Defender**
+- Multiple ships per side (add/remove ships)
+- NPC presets (Ancients / Guardians / GCDS) + Custom
+- Weapons supported:
+  - Cannons: Yellow (1), Orange (2), Blue (3), Red / Antimatter (4)
+  - Rift Cannon (special table)
+  - Missiles: Yellow (1), Orange (2)
+- Tech toggles:
+  - **Antimatter Splitter** (splits Antimatter damage across ships)
+  - **Morph Shield** (heals 1 HP per round while alive)
 
-## Expanding the ESLint configuration
+## How to Use
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+1. Configure ships on each side using the tiles.
+   - **Left-click**: increase a value
+   - **Right-click**: decrease a value
+2. Optionally pick a preset for attacker/defender.
+3. Toggle techs as needed.
+4. Click **Calculate**.
+
+## Simulation Notes
+
+- The app runs a fixed number of iterations per calculation (default is `10,000`).
+- Combat is simulated with missiles first (if present), then repeated cannon rounds up to a max round limit.
+- If the state doesn’t change for several rounds, the battle is treated as a draw (to avoid infinite stalemates).
+
+If you want to change the iteration count, edit the `ITERATIONS` constant in `src/App.jsx`.
+
+## Local Development
+
+Requires Node.js.
+
+```bash
+npm install
+npm run dev
+```
+
+Open the URL printed in the terminal (usually `http://localhost:5173`).
+
+## Build
+
+```bash
+npm run build
+npm run preview
+```
+
+## Tech Stack
+
+- React
+- Vite
+
+## Disclaimer
+
+This project is an unofficial community tool. The game _Eclipse: Second Dawn for the Galaxy_ and related content are the property of their respective owners.
