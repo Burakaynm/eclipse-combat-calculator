@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-const ITERATIONS = 10000;
+const ITERATIONS = 100000;
 
 const FIELD_DEFS = [
   {
@@ -888,6 +888,12 @@ function ResultBox({ label, value, background }) {
   );
 }
 
+function formatRate(rate) {
+  if (rate === 100) return ">99.9%";
+  if (rate === 0) return "<0.1%";
+  return rate.toFixed(1) + "%";
+}
+
 export default function App() {
   const [attacker, setAttacker] = useState([createShip()]);
   const [defender, setDefender] = useState(
@@ -985,19 +991,19 @@ export default function App() {
             >
               <ResultBox
                 label="Attacker"
-                value={`${result.attackerWinRate.toFixed(1)}%`}
+                value={formatRate(result.attackerWinRate)}
                 background={attackerWins ? "#1e3a2f" : "#3a1e1e"}
               />
 
               <ResultBox
                 label="Defender"
-                value={`${result.defenderWinRate.toFixed(1)}%`}
+                value={formatRate(result.defenderWinRate)}
                 background={defenderWins ? "#1e3a2f" : "#3a1e1e"}
               />
 
               <ResultBox
                 label="Draw"
-                value={`${result.drawRate.toFixed(1)}%`}
+                value={formatRate(result.drawRate)}
                 background="#1f2937"
               />
             </div>
