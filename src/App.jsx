@@ -405,7 +405,7 @@ function simulateSingleBattle(attackerShips, defenderShips, techs) {
   while (
     getAliveShips(allShips, "attacker").length > 0 &&
     getAliveShips(allShips, "defender").length > 0 &&
-    rounds < 100
+    rounds < ITERATIONS
   ) {
     rounds += 1;
     fireOrder("cannon");
@@ -888,12 +888,16 @@ function ResultBox({ label, value, background }) {
   );
 }
 
-function formatRate(rate) {
-  if (rate === 100) return ">99.9%";
-  if (rate === 0) return "<0.1%";
+function formatWinRate(rate) {
+  if (rate > 99.9) return ">99.9%";
+  if (rate < 0.1) return "<0.1%";
   return rate.toFixed(1) + "%";
 }
 
+function formatDrawRate(rate) {
+  if (rate === 0) return "0.0%";
+  return rate.toFixed(1) + "%";
+}
 export default function App() {
   const [attacker, setAttacker] = useState([createShip()]);
   const [defender, setDefender] = useState(
@@ -991,19 +995,19 @@ export default function App() {
             >
               <ResultBox
                 label="Attacker"
-                value={formatRate(result.attackerWinRate)}
+                value={formatWinRate(result.attackerWinRate)}
                 background={attackerWins ? "#1e3a2f" : "#3a1e1e"}
               />
 
               <ResultBox
                 label="Defender"
-                value={formatRate(result.defenderWinRate)}
+                value={formatWinRate(result.defenderWinRate)}
                 background={defenderWins ? "#1e3a2f" : "#3a1e1e"}
               />
 
               <ResultBox
                 label="Draw"
-                value={formatRate(result.drawRate)}
+                value={formatDrawRate(result.drawRate)}
                 background="#1f2937"
               />
             </div>
