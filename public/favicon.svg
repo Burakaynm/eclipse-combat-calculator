@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" fill="#0b1020"></rect>
+
+  <!-- Outer targeting ring -->
+  <circle cx="32" cy="32" r="20" stroke="#ffffff" stroke-width="4" fill="none"></circle>
+
+  <!-- Inner targeting ring -->
+  <circle cx="32" cy="32" r="8" stroke="#ffffff" stroke-width="3" fill="none"></circle>
+
+  <!-- Crosshair -->
+  <line x1="32" y1="8" x2="32" y2="20" stroke="#ffffff" stroke-width="3"></line>
+  <line x1="32" y1="44" x2="32" y2="56" stroke="#ffffff" stroke-width="3"></line>
+  <line x1="8" y1="32" x2="20" y2="32" stroke="#ffffff" stroke-width="3"></line>
+  <line x1="44" y1="32" x2="56" y2="32" stroke="#ffffff" stroke-width="3"></line>
+
+  <!-- Laser -->
+  <line x1="16" y1="48" x2="48" y2="16" stroke="#ff4d4d" stroke-width="4"></line>
+</svg>

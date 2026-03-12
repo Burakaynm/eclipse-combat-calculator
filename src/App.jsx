@@ -53,6 +53,13 @@ const FIELD_DEFS = [
     tooltip: "Plasma Missile",
   },
   {
+    key: "blueMissile",
+    label: "●●● 🚀︎",
+    bg: "#2e5fa7",
+    color: "#f5f5f5",
+    tooltip: "Solution Missile",
+  },
+  {
     key: "computer",
     label: "✚",
     bg: "#d6d1c4",
@@ -67,15 +74,8 @@ const FIELD_DEFS = [
     tooltip: "Shield",
   },
   {
-    key: "__spacer__",
-    label: "",
-    bg: "transparent",
-    color: "transparent",
-    tooltip: "",
-  },
-  {
     key: "shipCount",
-    label: "▶ ▶",
+    label: "▶▶",
     bg: "#d6d1c4",
     color: "#111111",
     tooltip: "Ship Count",
@@ -100,6 +100,7 @@ const EMPTY_SHIP = {
   riftDice: 0,
   yellowMissile: 0,
   orangeMissile: 0,
+  blueMissile: 0,
   computer: 0,
   shield: 0,
   hull: 0,
@@ -218,7 +219,7 @@ function hasCannons(ship) {
 }
 
 function hasMissiles(ship) {
-  return ship.yellowMissile + ship.orangeMissile > 0;
+  return ship.yellowMissile + ship.orangeMissile + ship.blueMissile > 0;
 }
 
 function chooseTarget(enemyShips, damage) {
@@ -258,6 +259,7 @@ function fireShip(attacker, enemyShips, phase, antimatterSplitter) {
     const missileAttempts = [
       ...Array.from({ length: attacker.yellowMissile }, () => 1),
       ...Array.from({ length: attacker.orangeMissile }, () => 2),
+      ...Array.from({ length: attacker.blueMissile }, () => 3),
     ];
 
     missileAttempts.forEach((damage) => {
@@ -671,7 +673,11 @@ function ShipCard({
             <Tile
               key={`${ship.id}-${field.key}`}
               label={field.label}
-              value={ship[field.key]}
+              value={
+                field.key === "shipCount"
+                  ? `x${ship[field.key]}`
+                  : ship[field.key]
+              }
               bg={field.bg}
               color={field.color}
               tooltip={field.tooltip}
